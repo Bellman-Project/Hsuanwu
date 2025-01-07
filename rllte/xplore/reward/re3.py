@@ -50,7 +50,7 @@ class RE3(BaseReward):
         k (int): Use the k-th neighbors.
         average_entropy (bool): Use the average of entropy estimation.
         encoder_model (str): The network architecture of the encoder from ['mnih', 'pathak'].
-        weight_init (str): The weight initialization method from ['default', 'orthogonal'].
+        weight_init (str): The weight initialization method from ['default', 'orthogonal', 'kaiming he'].
 
     Returns:
         Instance of RE3.

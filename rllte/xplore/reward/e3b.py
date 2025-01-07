@@ -55,7 +55,7 @@ class E3B(BaseReward):
         batch_size (int): The batch size for training.
         update_proportion (float): The proportion of the training data used for updating the forward dynamics models.
         encoder_model (str): The network architecture of the encoder from ['mnih', 'pathak'].
-        weight_init (str): The weight initialization method from ['default', 'orthogonal'].
+        weight_init (str): The weight initialization method from ['default', 'orthogonal', 'kaiming he'].
 
     Returns:
         Instance of E3B.

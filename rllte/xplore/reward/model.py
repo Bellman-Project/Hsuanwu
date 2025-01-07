@@ -36,6 +36,12 @@ def orthogonal_layer_init(layer, std=np.sqrt(2), bias_const=0.0):
     th.nn.init.constant_(layer.bias, bias_const)
     return layer
 
+def kaiming_he_init(layer):
+    th.nn.init.kaiming_normal_(layer.weight, nonlinearity='relu')
+    if layer.bias is not None:
+        th.nn.init.zeros_(layer.bias)
+    return layer
+
 def default_layer_init(layer):
     stdv = 1. / math.sqrt(layer.weight.size(1))
     layer.weight.data.uniform_(-stdv, stdv)
@@ -49,6 +55,8 @@ class ObservationEncoder(nn.Module):
     Args:
         obs_shape (Tuple): The data shape of observations.
         latent_dim (int): The dimension of encoding vectors.
+        encoder_model (str): The network architecture of the encoder from ['mnih', 'espeholt']. Defaults to 'mnih'
+        weight_init (str): The weight initialization method from ['default', 'orthogonal', 'kaiming he']. Defaults to 'default'
 
     Returns:
         Encoder instance.
@@ -59,6 +67,8 @@ class ObservationEncoder(nn.Module):
 
         if weight_init == "orthogonal":
             init_ = orthogonal_layer_init
+        elif weight_init == "kaiming he":
+            init_ = kaiming_he_init
         elif weight_init == "default":
             init_ = default_layer_init
         else:
