@@ -300,6 +300,8 @@ class PseudoCounts(BaseReward):
             # use a random mask to select a subset of the training data
             mask = th.rand(len(im_loss), device=self.device)
             mask = (mask < self.update_proportion).type(th.FloatTensor).to(self.device)
+            # expand the mask to match action spaces > 1
+            mask = mask.unsqueeze(1).expand_as(im_loss)
             # get the masked loss
             im_loss = (im_loss * mask).sum() / th.max(
                 mask.sum(), th.tensor([1], device=self.device, dtype=th.float32)
